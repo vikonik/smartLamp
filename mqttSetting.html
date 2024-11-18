@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки MQTT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        input[type="text"], input[type="password"] {
+            font-size: 14px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Настройки MQTT</h1>
+    
+    <!-- Ошибка при заполнении формы -->
+    <div id="errorMessage" class="error" style="display: none;">
+        <strong>Ошибка:</strong> Пожалуйста, заполните все поля корректно.
+    </div>
+
+    <form id="mqttSettingsForm">
+        <label for="mqttServer">Адрес MQTT-сервера</label>
+        <input type="text" id="mqttServer" name="mqttServer" placeholder="mqtt.example.com" required>
+        
+        <label for="mqttPort">Порт MQTT-сервера</label>
+        <input type="text" id="mqttPort" name="mqttPort" placeholder="1883" required>
+        
+        <label for="mqttUser">Имя пользователя</label>
+        <input type="text" id="mqttUser" name="mqttUser" placeholder="user123" required>
+        
+        <label for="mqttPassword">Пароль</label>
+        <input type="password" id="mqttPassword" name="mqttPassword" placeholder="password123" required>
+        
+        <button type="submit">Сохранить настройки</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("mqttSettingsForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        var mqttServer = document.getElementById("mqttServer").value;
+        var mqttPort = document.getElementById("mqttPort").value;
+        var mqttUser = document.getElementById("mqttUser").value;
+        var mqttPassword = document.getElementById("mqttPassword").value;
+
+        // Проверка на пустые поля
+        if (!mqttServer || !mqttPort || !mqttUser || !mqttPassword) {
+            document.getElementById("errorMessage").style.display = "block";
+            return;
+        }
+        
+        // Пример передачи данных на сервер (можно использовать для отправки данных на сервер)
+        var settingsData = {
+            mqttServer: mqttServer,
+            mqttPort: mqttPort,
+            mqttUser: mqttUser,
+            mqttPassword: mqttPassword
+        };
+
+        // Здесь можно отправить данные на сервер с помощью fetch, XMLHttpRequest или других методов
+        console.log("Настройки MQTT:", settingsData);
+        
+        // Сообщение об успешном сохранении (можно заменить на реальное сообщение с сервера)
+        alert("Настройки MQTT сохранены!");
+        
+        // Очистка формы
+        document.getElementById("mqttSettingsForm").reset();
+    });
+</script>
+
+</body>
+</html>

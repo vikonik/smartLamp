@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление нагрузкой</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            width: 40%;
+            padding-top: 40%;
+            position: relative;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 30px;
+            text-align: center;
+            line-height: 0;
+        }
+        .button span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .button.off {
+            background-color: #e74c3c;
+        }
+        .settings-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ddd;
+            border: none;
+            color: #555;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        .settings-button:hover {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Управление нагрузкой</h1>
+    
+    <!-- Большая квадратная кнопка для управления нагрузкой -->
+    <button class="button" id="loadControlButton" onclick="toggleLoad()">
+        <span>ВКЛ</span>
+    </button>
+
+    <!-- Кнопка для перехода к настройкам -->
+    <button class="settings-button" onclick="goToSettings()">
+        ⚙️
+    </button>
+</div>
+
+<script>
+    // Переменная для хранения состояния нагрузки (включено/выключено)
+    let loadOn = false;
+
+    // Функция для переключения состояния нагрузки
+    function toggleLoad() {
+        loadOn = !loadOn;
+        const button = document.getElementById("loadControlButton");
+        const buttonText = button.querySelector("span");
+
+        if (loadOn) {
+            button.classList.remove("off");
+            button.classList.add("on");
+            buttonText.textContent = "ОТКЛ";
+            button.style.backgroundColor = "#e74c3c";
+        } else {
+            button.classList.remove("on");
+            button.classList.add("off");
+            buttonText.textContent = "ВКЛ";
+            button.style.backgroundColor = "#4CAF50";
+        }
+    }
+
+    // Функция для перехода на страницу с настройками
+    function goToSettings() {
+        // Замените URL на фактический путь к странице настроек
+        window.location.href = "settings.html";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление временем работы устройства</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+        }
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        td.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+		td {
+            width: 4.16%; /* Каждый столбец с часами займет 1/24 ширины таблицы */
+        }
+        td:first-child {
+            width: auto; /* Столбец "День/Час" будет иметь ширину по содержимому */
+        }
+/* Адаптивность для планшетов и мобильных устройств */
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+                width: 100%;
+            }
+            th {
+                background-color: #f0f0f0;
+                font-weight: bold;
+                text-align: left;
+                padding-left: 10px;
+                font-size: 14px;
+                border-bottom: 2px solid #ccc;
+            }
+            tr {
+                margin-bottom: 10px;
+                border-bottom: 2px solid #ccc;
+            }
+            td {
+                display: block;
+                text-align: left;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-bottom: 1px solid #ccc;
+                position: relative;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                font-size: 12px;
+            }
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                position: absolute;
+                left: 10px;
+                top: 10px;
+            }
+        }
+
+        /* Адаптивность для мобильных телефонов */
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 6px;
+            }
+            td:before {
+                font-size: 12px;
+            }
+        }
+        
+        /* Добавление горизонтальной прокрутки для таблицы */
+        .table-container {
+            overflow-x: auto;
+        }
+		
+    </style>
+    <script>
+        // Функция переключения активности ячеек
+        function toggleCell(cell) {
+            cell.classList.toggle('active');
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Управление временем работы устройства</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>День/Час</th>
+                <!-- Создаем заголовки для каждого часа -->
+                <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th>
+                <th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+                <th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th>
+                <th>19</th><th>20</th><th>21</th><th>22</th><th>23</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Создаем строки для каждого дня недели -->
+            <tr>
+                <td>Понедельник</td>
+                <!-- Ячейки для каждого часа -->
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+            </tr>
+            <tr>
+                <td>Вторник</td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+            </tr>
+            <!-- Повторяем для всех дней недели -->
+            <tr><td>Среда</td>
+				<td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+			</tr>
+            <tr><td>Четверг</td>
+				<td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+			</tr>
+            <tr><td>Пятница</td>
+				<td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+			</tr>
+            <tr><td>Суббота</td>
+				<td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+			</tr>
+            <tr><td>Воскресенье</td>
+				<td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+                <td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td><td onclick="toggleCell(this)"></td>
+			</tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
