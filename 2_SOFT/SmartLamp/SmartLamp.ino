@@ -11,8 +11,11 @@
 #include "WiFiManager.h"
 
 #include "WebServer.h"
+#include "mqtt.h"
 
 extern AsyncWebServer asyncServer();
+
+
 
 
 
@@ -23,9 +26,18 @@ void setup() {
 
   // Запуск веб-сервера
   handleWebRequests();
+
+//Запускаем MQTT
+  loadMqttSetting();
+  client.setServer(mqttSettings.server, mqttSettings.port);
+  client.setCallback(callback);
+  client.setKeepAlive(mqttSettings.keepAlive);  // Указывает, что клиент должен отправлять PINGREQ каждые 60 секунд
+  connectToMqtt();
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 
 }
+

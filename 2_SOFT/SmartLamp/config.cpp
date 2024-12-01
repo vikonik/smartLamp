@@ -1,5 +1,5 @@
 // Настройки Wi-Fi
-const char* ssid = "VIKONIK";          // Имя вашей сети Wi-Fi
+const char* ssid = "Vikonik";          // Имя вашей сети Wi-Fi
 const char* password = "88115221421";  // Пароль от Wi-Fi
 
 const char* mySsid = "SmartLamp_AP";          // Имя вашей сети Wi-Fi
