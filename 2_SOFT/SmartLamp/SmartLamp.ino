@@ -4,6 +4,8 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ESPAsyncWebServer.h>
+#include <ESP8266mDNS.h>
+
 //#undef HTTP_ANY
 //#include <ESP8266WebServer.h>
 
@@ -38,6 +40,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+ updateDNS();
 }
 

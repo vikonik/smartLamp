@@ -26,6 +26,7 @@ struct MqttSettings {
 
 };
 extern MqttSettings mqttSettings;
+
 void loadMqttSetting(void);
 void handleSaveMqttSettings(AsyncWebServerRequest *request);
 void connectToMqtt();
