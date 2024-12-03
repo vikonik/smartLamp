@@ -142,7 +142,7 @@ const char* htmlSettingPage = R"rawliteral(
             <div>
                 <div>
                     <label for="use-StaticIP-client">
-                        <input type="checkbox" id="use-StaticIP-client" name="useStaticIpClient">
+                        <input type="checkbox" id="use-StaticIP-client" name="useStaticIpClient" value="%PLACEHOLDER_CLIENT_USE_STATIC_IP%">
                         Статический адрес
                     </label>
 					<br>
@@ -150,7 +150,7 @@ const char* htmlSettingPage = R"rawliteral(
 				<br>
                 <div>
                     <label for="client-ip">IP-адрес в режиме клиента:</label>
-                    <input type="text" id="client-ip" name="clientIP" required>
+                    <input type="text" id="client-ip" name="clientIP" value="%PLACEHOLDER_IP_CLIENT%">
                 </div>
             </div>
             
@@ -158,7 +158,7 @@ const char* htmlSettingPage = R"rawliteral(
             <div>
                 <div>
                     <label for="use-StaticIP-server">
-                        <input type="checkbox" id="use-StaticIP-server" name="useStaticIpServer">
+                        <input type="checkbox" id="use-StaticIP-server" name="useStaticIpServer" value="%PLACEHOLDER_AP_USE_STATIC_IP%">
                         Статический адрес
 
                     </label>
@@ -167,7 +167,7 @@ const char* htmlSettingPage = R"rawliteral(
 				<br>
                 <div>
                     <label for="ap-ip">IP-адрес в режиме точки доступа:</label>
-                    <input type="text" id="ap-ip" name="apIP" required>
+                    <input type="text" id="ap-ip" name="apIP" value="%PLACEHOLDER_IP_AP%">
                 </div>
             </div>
         </div>
@@ -176,14 +176,14 @@ const char* htmlSettingPage = R"rawliteral(
         <div style="display: flex; flex-direction: column; gap: 5px;">
           <label for="device-name">Сетевое имя:</label>
           <div style="display: flex; align-items: center; gap: 5px;">
-            <input type="text" id="device-name" name="deviceName" required style="flex-grow: 1;">
+            <input type="text" id="device-name" name="deviceName"  style="flex-grow: 1;" value="%PLACEHOLDER_DVICE_NAE%">
             <span>.local</span>
           </div>
         </div>
         <!--  имя хоста -->
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <label for="host-name">Имя хоста:</label>
-            <input type="text" id="host-name" name="hostName" required>
+            <input type="text" id="host-name" name="hostName"  value="%PLACEHOLDER_HOST_NAE%">
         </div>	
         <!-- Кнопка сохранения -->
         <button type="submit">Сохранить сетевые настройки</button>
@@ -197,7 +197,7 @@ const char* htmlSettingPage = R"rawliteral(
         <h2>Изменение пароля</h2>
         <form action="/changePassword" method="POST">
             <label for="new-password">Новый пароль:</label>
-            <input type="password" id="new-password" name="newPassword" required>
+            <input type="password" id="new-password" name="newPassword" required value="%PLACEHOLDER_NEW_PASSWORD%">
 
             <button type="submit">Изменить пароль</button>
         </form>

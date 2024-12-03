@@ -103,6 +103,7 @@ void handleWebRequests() {
     }
       
 
+//Здесь заполняем поля страницы значениями 
       request->send_P(200, "text/html", htmlSettingPage, [](const String &var) -> String {
     if (var == "PLACEHOLDER_MQTT_SERVER") {
         return mqttSettings.server;
@@ -149,7 +150,11 @@ void handleWebRequests() {
                                           "<option value=\"false\">Нет</option>"
                                         : "<option value=\"true\">Да</option>"
                                           "<option value=\"false\" selected>Нет</option>";
+    } else if (var == "PLACEHOLDER_CLIENT_USE_STATIC_IP") {
+        return wifiSettings.useStaticIpClient ? "checked" : "";
     }
+
+
         return String();
 
 
@@ -159,7 +164,7 @@ void handleWebRequests() {
 
 //Читаем настройкиб Обработка полученного ответа
 asyncServer.on("/saveMQTTSettings", HTTP_POST,handleSaveMqttSettings);
-
+asyncServer.on("/saveNetworkSettings", HTTP_POST,handleSaveNetwotkSettings);
 
   // Запуск сервера
   asyncServer.begin();

@@ -2,6 +2,7 @@
 #include "config.h"
 #include <ESP8266mDNS.h>
 
+
 // Имя устройства в сети
 const char* deviceName = "mydevice";
 /*
@@ -28,6 +29,19 @@ void initWiFiSettings() {
     strncpy(wifiSettings.dns2, "8.8.4.4", sizeof(wifiSettings.dns2) - 1);
     strncpy(wifiSettings.hostname, "SmartDevice", sizeof(wifiSettings.hostname) - 1);
 }
+
+ if (settings.useStaticIP) {
+        IPAddress ip, gw, subnet, dns1, dns2;
+        ip.fromString(settings.staticIP);
+        gw.fromString(settings.gateway);
+        subnet.fromString(settings.subnet);
+        dns1.fromString(settings.dns1);
+        dns2.fromString(settings.dns2);
+        
+        WiFi.config(ip, gw, subnet, dns1, dns2);
+    } else {
+        WiFi.config(0U, 0U, 0U); // DHCP
+    }
 */
 // Функция подключения к Wi-Fi
 void connectToWiFi(const char* ssid, const char* password) {
@@ -98,4 +112,48 @@ void restartDevice() {
 /**/
 void updateDNS(void){
   MDNS.update();
+}
+
+/******* Обработка данных со страницы настройки ************************/
+void handleSaveNetwotkSettings(AsyncWebServerRequest *request) {
+    if (request->hasParam("useStaticIpClient", true)) {
+        wifiSettings.useStaticIpClient = true;
+    } else {
+        wifiSettings.useStaticIpClient = false;
+    }
+
+    if (request->hasParam("clientIP", true)) {
+        String clientIpParam = request->getParam("clientIP", true)->value();
+        strncpy(wifiSettings.clientIP, clientIpParam.c_str(), sizeof(wifiSettings.clientIP) - 1);
+        wifiSettings.clientIP[sizeof(wifiSettings.clientIP) - 1] = '\0';
+    }
+
+    if (request->hasParam("useStaticIpServer", true)) {
+        wifiSettings.useStaticIpServer = true;
+    } else {
+        wifiSettings.useStaticIpServer = false;
+    }
+
+    if (request->hasParam("apIP", true)) {
+        String apIpParam = request->getParam("apIP", true)->value();
+        strncpy(wifiSettings.apIP, apIpParam.c_str(), sizeof(wifiSettings.apIP) - 1);
+        wifiSettings.apIP[sizeof(wifiSettings.apIP) - 1] = '\0';
+    }
+
+    if (request->hasParam("deviceName", true)) {
+        String deviceNameParam = request->getParam("deviceName", true)->value();
+        strncpy(wifiSettings.deviceName, deviceNameParam.c_str(), sizeof(wifiSettings.deviceName) - 1);
+        wifiSettings.deviceName[sizeof(wifiSettings.deviceName) - 1] = '\0';
+    }
+
+    if (request->hasParam("hostName", true)) {
+        String hostNameParam = request->getParam("hostName", true)->value();
+        strncpy(wifiSettings.hostName, hostNameParam.c_str(), sizeof(wifiSettings.hostName) - 1);
+        wifiSettings.hostName[sizeof(wifiSettings.hostName) - 1] = '\0';
+    }
+
+   
+
+    saveMqttSettings(mqttSettings);
+    request->redirect("/settings");// Перенаправить пользователя на страницу с настройками после сохранения
 }

@@ -99,7 +99,7 @@
             <input type="text" id="mqtt-username" name="mqttUsername">
 
             <label for="mqtt-password">Пароль MQTT:</label>
-            <input type="password" id="mqtt-password" name="mqttPassword">
+            <input type="text" id="mqtt-password" name="mqttPassword">
 
             <label for="mqtt-subscribe-topic">Тема подписки:</label>
             <input type="text" id="mqtt-subscribe-topic" name="mqttSubscribeTopic">
@@ -143,6 +143,8 @@
             <div>
                 <div>
                     <label for="use-StaticIP-client">
+						<h2>Режим Клиент</h2>
+						<br>
                         <input type="checkbox" id="use-StaticIP-client" name="useStaticIpClient">
                         Статический адрес
                     </label>
@@ -153,12 +155,24 @@
                     <label for="client-ip">IP-адрес в режиме клиента:</label>
                     <input type="text" id="client-ip" name="clientIP" required>
                 </div>
+				                <br>
+                <div>
+                    <label for="client-ssid">Название(SSID) WiFi-сети:</label>
+                    <input type="text" id="client-ssid" name="wifiSSID" required>
+                </div>
+                <br>
+                <div>
+                    <label for="client-password">Пароль WiFi:</label>
+                    <input type="text" id="client-password" name="wifiClientPassword" required>
+                </div>
             </div>
             
             <!-- Настройки точки доступа -->
             <div>
                 <div>
                     <label for="use-StaticIP-server">
+					<h2>Режим Сервер</h2>
+					<br>
                         <input type="checkbox" id="use-StaticIP-server" name="useStaticIpServer">
                         Статический адрес
 
@@ -169,6 +183,16 @@
                 <div>
                     <label for="ap-ip">IP-адрес в режиме точки доступа:</label>
                     <input type="text" id="ap-ip" name="apIP" required>
+                </div>
+				                <br>
+                <div>
+                    <label for="ap-ssid">Название(SSID) точки доступа:</label>
+                    <input type="text" id="ap-ssid" name="wifiSSID" required>
+                </div>
+                <br>
+                <div>
+                    <label for="ap-password">Пароль WiFi точки доступа:</label>
+                    <input type="text" id="ap-password" name="wifiApPassword" required>
                 </div>
             </div>
         </div>
@@ -200,7 +224,7 @@
         <h2>Изменение пароля</h2>
         <form action="/changePassword" method="POST">
             <label for="new-password">Новый пароль:</label>
-            <input type="password" id="new-password" name="newPassword" required>
+            <input type="text" id="new-password" name="newPassword" required>
 
             <button type="submit">Изменить пароль</button>
         </form>
