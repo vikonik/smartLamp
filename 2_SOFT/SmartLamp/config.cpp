@@ -1,3 +1,10 @@
+#include <iterator>
+#include <Preferences.h>
+
+// Объявляем объект Preferences для работы с flash-памятью
+Preferences preferences;
+
+
 // Настройки Wi-Fi
 const char* ssid = "Vikonik";          // Имя вашей сети Wi-Fi
 const char* password = "88115221421";  // Пароль от Wi-Fi
@@ -11,4 +18,10 @@ const int mqtt_port = 1883;              // Порт MQTT, по умолчани
 const char* mqtt_user = "mqtt_user";     // Имя пользователя MQTT
 const char* mqtt_password = "mqtt_password"; // Пароль MQTT
 
+
+
 // Другие настройки можно добавлять здесь...
+
+/**/
+
+

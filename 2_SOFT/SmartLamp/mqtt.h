@@ -6,7 +6,7 @@
 
 extern PubSubClient client;
 
-struct MqttSettings {
+typedef struct  {
     uint8_t isFerstStart;
     char server[100];         // Адрес MQTT-сервера
     uint16_t port;            // Порт MQTT-сервера
@@ -24,8 +24,8 @@ struct MqttSettings {
     int willQos;              // Уровень QoS для сообщения последней доброй воли
     bool willRetain;          // Флаг Retain для сообщения последней доброй воли
 
-};
-extern MqttSettings mqttSettings;
+}MqttSettings_t;
+extern MqttSettings_t mqttSettings;
 
 void loadMqttSetting(void);
 void handleSaveMqttSettings(AsyncWebServerRequest *request);

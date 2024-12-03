@@ -24,7 +24,9 @@ extern AsyncWebServer asyncServer();
 
 void setup() {
   Serial.begin(115200);
-  connectToWiFi(ssid, password); // Подключаемся к Wi-Fi
+  delay(2000);
+  Serial.println("Ready");
+  connectToWiFi(); // Подключаемся к Wi-Fi
 
   // Запуск веб-сервера
   handleWebRequests();
@@ -40,6 +42,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
- updateDNS();
+// updateDNS();
 }
 

@@ -142,15 +142,27 @@ const char* htmlSettingPage = R"rawliteral(
             <div>
                 <div>
                     <label for="use-StaticIP-client">
-                        <input type="checkbox" id="use-StaticIP-client" name="useStaticIpClient" value="%PLACEHOLDER_CLIENT_USE_STATIC_IP%">
+                    <h2>Режим Клиент</h2>
+                    <br>
+                        <input type="checkbox" id="use-StaticIP-client" name="useStaticIpClient" value="%PLACEHOLDER_WIFI_USE_STATIC_IP_CLIENT%">
                         Статический адрес
                     </label>
-					<br>
+					          <br>
                 </div>
-				<br>
+				        <br>
                 <div>
                     <label for="client-ip">IP-адрес в режиме клиента:</label>
-                    <input type="text" id="client-ip" name="clientIP" value="%PLACEHOLDER_IP_CLIENT%">
+                    <input type="text" id="client-ip" name="clientIP" value="%PLACEHOLDER_WIFI_CLIENT_IP%">
+                </div>
+				        <br>
+                <div>
+                    <label for="client-ssid">Название(SSID) WiFi-сети:</label>
+                    <input type="text" id="client-ssid" name="wifiClientSSID" value="%PLACEHOLDER_WIFI_SSID_CLIENT%">
+                </div>
+                <br>
+                <div>
+                    <label for="client-password">Пароль WiFi:</label>
+                    <input type="text" id="client-password" name="wifiClientPassword" value="%PLACEHOLDER_WIFI_PASSWORD_CLIENT%">
                 </div>
             </div>
             
@@ -158,39 +170,50 @@ const char* htmlSettingPage = R"rawliteral(
             <div>
                 <div>
                     <label for="use-StaticIP-server">
-                        <input type="checkbox" id="use-StaticIP-server" name="useStaticIpServer" value="%PLACEHOLDER_AP_USE_STATIC_IP%">
+                    <h2>Режим Сервер</h2>
+                    <br>
+                        <input type="checkbox" id="use-StaticIP-server" name="useStaticIpServer" value="%PLACEHOLDER_WIFI_USE_STATIC_IP_SERVER%">
                         Статический адрес
-
                     </label>
-					<br>
+					          <br>
                 </div>
-				<br>
+				        <br>
                 <div>
                     <label for="ap-ip">IP-адрес в режиме точки доступа:</label>
-                    <input type="text" id="ap-ip" name="apIP" value="%PLACEHOLDER_IP_AP%">
+                    <input type="text" id="ap-ip" name="apIP" value="%PLACEHOLDER_WIFI_AP_IP%">
+                </div>
+				        <br>
+                <div>
+                    <label for="ap-ssid">Название(SSID) точки доступа:</label>
+                    <input type="text" id="ap-ssid" name="wifiApSSID" value="%PLACEHOLDER_WIFI_SSID_AP%">
+                </div>
+                <br>
+                <div>
+                    <label for="ap-password">Пароль WiFi точки доступа:</label>
+                    <input type="text" id="ap-password" name="wifiApPassword" value="%PLACEHOLDER_WIFI_PASSWORD_AP%">
                 </div>
             </div>
         </div>
 
-     <!-- Сетевое имя устройства -->
-        <div style="display: flex; flex-direction: column; gap: 5px;">
-          <label for="device-name">Сетевое имя:</label>
-          <div style="display: flex; align-items: center; gap: 5px;">
-            <input type="text" id="device-name" name="deviceName"  style="flex-grow: 1;" value="%PLACEHOLDER_DVICE_NAE%">
-            <span>.local</span>
-          </div>
-        </div>
+        <!-- Сетевое имя устройства -->
+        
+		<div style="display: flex; flex-direction: column; gap: 5px;">
+			<label for="device-name">Сетевое имя:</label>
+			<div style="display: flex; align-items: center; gap: 5px;">
+				<input type="text" id="device-name" name="deviceName" style="flex-grow: 1;" value="%PLACEHOLDER_DEVICE_NAME%">
+				<span>.local</span>
+			</div>
+		</div>
         <!--  имя хоста -->
+        
         <div style="display: flex; flex-direction: column; gap: 5px;">
             <label for="host-name">Имя хоста:</label>
-            <input type="text" id="host-name" name="hostName"  value="%PLACEHOLDER_HOST_NAE%">
-        </div>	
+            <input type="text" id="host-name" name="hostName" value="%PLACEHOLDER_HOST_NAME%">
+        </div>		
         <!-- Кнопка сохранения -->
         <button type="submit">Сохранить сетевые настройки</button>
     </form>
 </div>
-
-
 
     <!-- Раздел изменения пароля -->
     <div class="section">
@@ -202,6 +225,15 @@ const char* htmlSettingPage = R"rawliteral(
             <button type="submit">Изменить пароль</button>
         </form>
     </div>
+
+    <!-- Откат к заводским настройкам -->
+    <div class="section">
+        <h2>Возврат к заводским установкам</h2>
+        <form action="/returnNetworkSettingsDefault" method="POST">
+            <button type="submit">Вернуть заводские установки</button>
+        </form>
+    </div>
+
 </div>
 
 </body>

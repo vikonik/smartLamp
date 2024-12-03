@@ -2,8 +2,9 @@
 #define WIFI_MANAGER_H
 
 #include <ESP8266WiFi.h> // Подключение библиотеки для работы с Wi-Fi
+#include <ESPAsyncWebServer.h>
 
-typedef struct WiFiSettings {
+typedef struct {
     uint8_t isFerstStart;    //Маркер
     char ssidAP[32];           // Название сети Wi-Fi (SSID) при работе в режиме точки доступа
     char passwordAP[64];       // Пароль Wi-Fi при работе в режиме точки доступа
@@ -21,13 +22,16 @@ typedef struct WiFiSettings {
 
     char dns1[16];           // Основной DNS-сервер (например, "8.8.8.8")
     char dns2[16];           // Дополнительный DNS-сервер (например, "8.8.4.4")
-    char hostname[50];        // Имя хоста (hostname) устройства
+	char deviceName[50];
+    char hostName[50];        // Имя хоста (hostname) устройства
 }WiFiSettings_t;
-extern WiFiSettings_t WiFiSettings;
+
+extern WiFiSettings_t wifiSettings;
 
 // Декларация функций
 void initWiFiSettings();
-void connectToWiFi(const char* ssid, const char* password);
+void handleSaveNetwotkSettings(AsyncWebServerRequest *request);
+void connectToWiFi();
 void startAccessPoint();
 void restartDevice();
 void updateDNS(void);

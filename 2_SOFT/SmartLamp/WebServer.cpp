@@ -3,6 +3,8 @@
 #include "mainPage.h"
 #include "settingPage.h"
 #include "mqtt.h"
+#include "WiFiManager.h"
+#include "config.h"
 // Пароль для доступа
 const char* passwordCorrect = "Humster";  
 uint8_t isPaswordGood = 0;
@@ -104,11 +106,12 @@ void handleWebRequests() {
       
 
 //Здесь заполняем поля страницы значениями 
-      request->send_P(200, "text/html", htmlSettingPage, [](const String &var) -> String {
+request->send_P(200, "text/html", htmlSettingPage, [](const String &var) -> String {
+    // MQTT settings placeholders
     if (var == "PLACEHOLDER_MQTT_SERVER") {
         return mqttSettings.server;
     } 
-    else if (var == "PLACEHOLDER_MQTT_SPORT") {
+    else if (var == "PLACEHOLDER_MQTT_PORT") {
         return String(mqttSettings.port);
     } else if (var == "PLACEHOLDER_USER_NAME") {
         return mqttSettings.username;
@@ -150,17 +153,34 @@ void handleWebRequests() {
                                           "<option value=\"false\">Нет</option>"
                                         : "<option value=\"true\">Да</option>"
                                           "<option value=\"false\" selected>Нет</option>";
-    } else if (var == "PLACEHOLDER_CLIENT_USE_STATIC_IP") {
-        return wifiSettings.useStaticIpClient ? "checked" : "";
     }
 
+    // WiFi settings placeholders
+    else if (var == "PLACEHOLDER_WIFI_USE_STATIC_IP_CLIENT") {
+        return wifiSettings.useStaticIpClient ? "checked" : "";
+    } else if (var == "PLACEHOLDER_WIFI_CLIENT_IP") {
+        return wifiSettings.staticIPClient;
+    } else if (var == "PLACEHOLDER_WIFI_SSID_CLIENT") {
+        return wifiSettings.ssidClient;
+    } else if (var == "PLACEHOLDER_WIFI_PASSWORD_CLIENT") {
+        return wifiSettings.passwordClient;
+    } else if (var == "PLACEHOLDER_WIFI_USE_STATIC_IP_SERVER") {
+        return wifiSettings.useStaticIpAP ? "checked" : "";
+    } else if (var == "PLACEHOLDER_WIFI_AP_IP") {
+        return wifiSettings.staticIPHost;
+    } else if (var == "PLACEHOLDER_WIFI_SSID_AP") {
+        return wifiSettings.ssidAP;
+    } else if (var == "PLACEHOLDER_WIFI_PASSWORD_AP") {
+        return wifiSettings.passwordAP;
+    } else if (var == "PLACEHOLDER_DEVICE_NAME") {
+        return wifiSettings.deviceName;
+    } else if (var == "PLACEHOLDER_HOST_NAME") {
+        return wifiSettings.hostName;
+    }
 
-        return String();
-
-
-    });
-
-  });
+    return String();
+});
+ });
 
 //Читаем настройкиб Обработка полученного ответа
 asyncServer.on("/saveMQTTSettings", HTTP_POST,handleSaveMqttSettings);

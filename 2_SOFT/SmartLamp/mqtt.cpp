@@ -1,5 +1,6 @@
 #include "mqtt.h"
-#include <EEPROM.h> // Для работы с EEPROM
+#include "config.h"
+
 #include <PubSubClient.h>
 
 
@@ -8,7 +9,7 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-MqttSettings mqttSettingsDefailt = {
+MqttSettings_t mqttSettingsDefailt = {
     123,//Просто маркер
     "mqtt.example.com",      // server
     1883,                    // port
@@ -27,30 +28,17 @@ MqttSettings mqttSettingsDefailt = {
     false                     // willRetain
 };
 
-MqttSettings mqttSettings;
+MqttSettings_t mqttSettings;
 
-/**/
-void saveMqttSettings(const MqttSettings &settings) {
-    EEPROM.begin(sizeof(MqttSettings)); // Инициализация EEPROM с объемом 512 байт
-    EEPROM.put(0, settings);
-    EEPROM.commit(); // Сохранение данных
-    EEPROM.end();
-}
-MqttSettings readMqttSettings() {
-    MqttSettings settings;
-    EEPROM.begin(sizeof(MqttSettings));
-    EEPROM.get(0, settings);
-    EEPROM.end();
-    return settings;
-}
+
 
 /**/
 void loadMqttSetting(void){
-  mqttSettings = readMqttSettings();
+ loadSettings(mqttSettings, MQTT_STRUCT_ADDR);//0 это адрес начала
   if(mqttSettings.isFerstStart != mqttSettingsDefailt.isFerstStart){
-    saveMqttSettings(mqttSettingsDefailt);  
+    saveSettings(mqttSettingsDefailt,MQTT_STRUCT_ADDR);  
   }
-  mqttSettings = readMqttSettings();
+  loadSettings(mqttSettings,MQTT_STRUCT_ADDR);
 }
 
 /*
@@ -133,7 +121,7 @@ void handleSaveMqttSettings(AsyncWebServerRequest *request) {
         mqttSettings.willRetain = request->getParam("mqttWillRetain", true)->value() == "true";
     }
 
-    saveMqttSettings(mqttSettings);
+    saveSettings(mqttSettings, MQTT_STRUCT_ADDR);
     request->redirect("/settings");// Перенаправить пользователя на страницу с настройками после сохранения
 }
 
