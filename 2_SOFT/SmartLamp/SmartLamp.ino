@@ -23,6 +23,7 @@ extern AsyncWebServer asyncServer();
 
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(115200);
   delay(2000);
   Serial.println("Ready");
@@ -36,12 +37,15 @@ void setup() {
   client.setServer(mqttSettings.server, mqttSettings.port);
   client.setCallback(callback);
   client.setKeepAlive(mqttSettings.keepAlive);  // Указывает, что клиент должен отправлять PINGREQ каждые 60 секунд
-  connectToMqtt();
+  //connectToMqtt();
+
+
 
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
 // updateDNS();
+
 }
 

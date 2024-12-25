@@ -96,9 +96,13 @@ void handleWebRequests() {
     }
   });
 
-  // Отправлчнм страницу настроек
+
+
+
+  // Отправляем страницу настроек
   // Данные подставляются "на лету"
   asyncServer.on("/settings", HTTP_GET, [](AsyncWebServerRequest *request) {
+    Serial.println("Изменить Настройки");
     if(!isPaswordGood){
       request->redirect("/");
       return;
@@ -186,6 +190,26 @@ request->send_P(200, "text/html", htmlSettingPage, [](const String &var) -> Stri
 asyncServer.on("/saveMQTTSettings", HTTP_POST,handleSaveMqttSettings);
 asyncServer.on("/saveNetworkSettings", HTTP_POST,handleSaveNetwotkSettings);
 
+  // Обработка запроса на изменение пароля
+  asyncServer.on("/changePassword", HTTP_POST, [](AsyncWebServerRequest *request) {
+    Serial.println("Изменить пароль");
+    //Здесь написать код для изменения пароля
+    //...
+    request->redirect("/settings");
+
+return;
+  });
+
+  // Обработка запроса на возврат к заводским установкам
+  asyncServer.on("/returnNetworkSettingsDefault", HTTP_POST, [](AsyncWebServerRequest *request) {
+    Serial.println("Возврат к заводским настройкам");
+    //Здесь написать код для возврата к заводским настройкам
+    //...
+    request->redirect("/settings");
+
+return;
+  });
+
   // Запуск сервера
   asyncServer.begin();
 }
@@ -197,11 +221,17 @@ void controlLoad(bool state) {
   // Здесь можно добавить код для управления физической нагрузкой, например, включение/выключение реле
   if (loadOn) {
     Serial.println("Нагрузка включена");
+    digitalWrite(LED_BUILTIN, LOW);
+
     // Включение нагрузки
   } else {
     Serial.println("Нагрузка выключена");
+    digitalWrite(LED_BUILTIN, HIGH);
     // Выключение нагрузки
   }
 }
+
+
+  
 
 
