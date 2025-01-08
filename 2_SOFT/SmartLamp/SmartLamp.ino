@@ -23,7 +23,7 @@ extern AsyncWebServer asyncServer();
 
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(16, OUTPUT);
   Serial.begin(115200);
   delay(2000);
   Serial.println("Ready");

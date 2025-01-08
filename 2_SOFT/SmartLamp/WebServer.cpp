@@ -1,5 +1,6 @@
 #include "WebServer.h"
 #include "passwordPage.h"
+#include "wrongPasswordPage.h"
 #include "mainPage.h"
 #include "settingPage.h"
 #include "mqtt.h"
@@ -79,7 +80,7 @@ void handleWebRequests() {
       request->send(200, "text/html", htmlMainPage); // Отправляем главную страницу
       //request->send(200, "text/html", "<h1>Password Correct</h1><p>You have successfully entered the correct password.</p>");
     } else {
-      request->send(200, "text/html", "<h1>А почему этот пароль имеет такой странный вид?</h1><p>Попробуй ещё разок</p>");
+      request->send(200, "text/html", htmlWrongPasswordPage);
     }
   });
 
@@ -229,12 +230,12 @@ void controlLoad(bool state) {
   // Здесь можно добавить код для управления физической нагрузкой, например, включение/выключение реле
   if (loadOn) {
     Serial.println("Нагрузка включена");
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(16, LOW);
 
     // Включение нагрузки
   } else {
     Serial.println("Нагрузка выключена");
-    digitalWrite(LED_BUILTIN, HIGH);
+    digitalWrite(16, HIGH);
     // Выключение нагрузки
   }
 }
