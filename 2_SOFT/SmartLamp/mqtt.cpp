@@ -34,11 +34,13 @@ MqttSettings_t mqttSettings;
 
 /**/
 void loadMqttSetting(void){
- loadSettings(mqttSettings, MQTT_STRUCT_ADDR);//0 это адрес начала
-  if(mqttSettings.isFerstStart != mqttSettingsDefailt.isFerstStart){
-    saveSettings(mqttSettingsDefailt,MQTT_STRUCT_ADDR);  
-  }
-  loadSettings(mqttSettings,MQTT_STRUCT_ADDR);
+//  loadSettings(mqttSettings, MQTT_STRUCT_ADDR);//0 это адрес начала
+//   if(mqttSettings.isFerstStart != mqttSettingsDefailt.isFerstStart){
+//     saveSettings(mqttSettingsDefailt,MQTT_STRUCT_ADDR);  
+//   }
+//   loadSettings(mqttSettings,MQTT_STRUCT_ADDR);
+
+//  printStruct(mqttSettings);
 }
 
 /*
@@ -121,7 +123,7 @@ void handleSaveMqttSettings(AsyncWebServerRequest *request) {
         mqttSettings.willRetain = request->getParam("mqttWillRetain", true)->value() == "true";
     }
 
-    saveSettings(mqttSettings, MQTT_STRUCT_ADDR);
+    saveSettings(mqttSettings, "/mqttSettings.dat");
     request->redirect("/settings");// Перенаправить пользователя на страницу с настройками после сохранения
 }
 

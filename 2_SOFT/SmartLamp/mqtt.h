@@ -26,6 +26,7 @@ typedef struct  {
 
 }MqttSettings_t;
 extern MqttSettings_t mqttSettings;
+extern MqttSettings_t mqttSettingsDefailt;
 
 void loadMqttSetting(void);
 void handleSaveMqttSettings(AsyncWebServerRequest *request);

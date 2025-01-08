@@ -2,7 +2,8 @@
 #include "config.h"
 #include <ESP8266mDNS.h>
 #include <ESPAsyncWebServer.h>
-
+#include "mqtt.h"
+//extern MqttSettings_t mqttSettings;
 
 
 // Имя устройства в сети
@@ -52,7 +53,7 @@ void printStruct(const T& data) {
 
 // Функция для вывода всех полей структуры
 template <typename T>
-void printStructFields(const T& data) {
+void printStructFields(const T& data) {//Такую же структуру нужно написать для вывода настроек MQTT
     // Список полей структуры необходимо добавлять вручную
     PRINT_STRUCT_FIELD(isFerstStart);
     PRINT_STRUCT_FIELD(ssidAP);
@@ -73,23 +74,52 @@ void printStructFields(const T& data) {
     PRINT_STRUCT_FIELD(hostName);
 }
 
-
+template <typename T>
+void printStructMqttSettings(const T& data) {//Такую же структуру нужно написать для вывода настроек MQTT
+    // Список полей структуры необходимо добавлять вручную
+    PRINT_STRUCT_FIELD(isFerstStart);
+    PRINT_STRUCT_FIELD(server);
+    PRINT_STRUCT_FIELD(port);
+    PRINT_STRUCT_FIELD(username);
+    PRINT_STRUCT_FIELD(password);
+    PRINT_STRUCT_FIELD(clientId);
+    PRINT_STRUCT_FIELD(topicSubscribe);
+    PRINT_STRUCT_FIELD(topicPublish);
+    PRINT_STRUCT_FIELD(keepAlive);
+    PRINT_STRUCT_FIELD(qos);
+    PRINT_STRUCT_FIELD(retain);
+    PRINT_STRUCT_FIELD(cleanSession);
+    PRINT_STRUCT_FIELD(willTopic);
+    PRINT_STRUCT_FIELD(willPayload);
+    PRINT_STRUCT_FIELD(willQos);
+    PRINT_STRUCT_FIELD(willRetain);
+}
 /****************************/
 // Инициализация структуры
 
 void initWiFiSettings() {
 
-  loadSettings(wifiSettings, WiFi_STRUCT_ADDR);
-    printStruct(wifiSettings);
-  if(wifiSettings.isFerstStart != wifiSettingsDefault.isFerstStart){
-    Serial.println("WiFi_STRUCT_ADDR: " + String(WiFi_STRUCT_ADDR));
-    printStruct(wifiSettingsDefault);
-    saveSettings(wifiSettingsDefault,WiFi_STRUCT_ADDR);  
-  }
-  loadSettings(wifiSettings, WiFi_STRUCT_ADDR);
-  printStruct(wifiSettings);
+  // loadSettings(wifiSettings, WiFi_STRUCT_ADDR);
+  //   printStruct(wifiSettings);
+  // if(wifiSettings.isFerstStart != wifiSettingsDefault.isFerstStart){
+  //   Serial.println("WiFi_STRUCT_ADDR: " + String(WiFi_STRUCT_ADDR));
+  //   printStruct(wifiSettingsDefault);
+  //   saveSettings(wifiSettingsDefault,WiFi_STRUCT_ADDR);  
+  // }
+  // loadSettings(wifiSettings, WiFi_STRUCT_ADDR);
+
+  printSettingToUART();
 }
 
+//Выводим все настройки в UART
+void printSettingToUART(void){
+  Serial.println("WiFi Settings:");
+  printStruct(wifiSettings);
+  Serial.println("MQTT settings:");
+  printStructMqttSettings(mqttSettings);
+  Serial.print("InputPassword:");
+  Serial.println(inputPassword.password);
+}
 /*
  if (settings.useStaticIP) {
         IPAddress ip, gw, subnet, dns1, dns2;
@@ -241,7 +271,7 @@ void handleSaveNetwotkSettings(AsyncWebServerRequest *request) {
     }
 
     // Сохранение обновленных настроек в память EEPROM
-    saveSettings(wifiSettings, WiFi_STRUCT_ADDR);
+    saveSettings(wifiSettings, "/wifiSettings.dat");
 
     // Перенаправление пользователя на страницу с настройками после сохранения
     request->redirect("/settings");

@@ -28,6 +28,8 @@ typedef struct {
 
 extern WiFiSettings_t wifiSettings;
 
+extern WiFiSettings_t wifiSettingsDefault;
+
 // Декларация функций
 void initWiFiSettings();
 void handleSaveNetwotkSettings(AsyncWebServerRequest *request);
@@ -35,4 +37,5 @@ void connectToWiFi();
 void startAccessPoint();
 void restartDevice();
 void updateDNS(void);
+void printSettingToUART(void);//Выводим все настройки в UART
 #endif // WIFI_MANAGER_H

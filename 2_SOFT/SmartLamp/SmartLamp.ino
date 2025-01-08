@@ -1,6 +1,3 @@
-
-
-
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ESPAsyncWebServer.h>
@@ -15,6 +12,8 @@
 #include "WebServer.h"
 #include "mqtt.h"
 
+#include "config.h"
+
 extern AsyncWebServer asyncServer();
 
 
@@ -25,15 +24,16 @@ extern AsyncWebServer asyncServer();
 void setup() {
   pinMode(16, OUTPUT);
   Serial.begin(115200);
-  delay(2000);
+  delay(5000);
   Serial.println("Ready");
+  initLittleFS();
   connectToWiFi(); // Подключаемся к Wi-Fi
 
   // Запуск веб-сервера
   handleWebRequests();
 
 //Запускаем MQTT
-  loadMqttSetting();
+  loadMqttSetting(); //Настройки загрцжаются из файла при инициализации FS
   client.setServer(mqttSettings.server, mqttSettings.port);
   client.setCallback(callback);
   client.setKeepAlive(mqttSettings.keepAlive);  // Указывает, что клиент должен отправлять PINGREQ каждые 60 секунд

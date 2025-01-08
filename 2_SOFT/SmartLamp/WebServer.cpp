@@ -7,7 +7,7 @@
 #include "WiFiManager.h"
 #include "config.h"
 // Пароль для доступа
-const char* passwordCorrect = "Humster";  
+//const char* passwordCorrect = "Humster";  
 uint8_t isPaswordGood = 0;
 String enteredPassword = "";
 
@@ -51,7 +51,8 @@ void handleWebRequests() {
   // Обработка GET запроса для главной страницы
   asyncServer.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     // Проверяем, введен ли правильный пароль
-    if (enteredPassword == passwordCorrect) {
+    Serial.println("Проверяем, введен ли правильный пароль");
+    if (enteredPassword == inputPassword.password) {
       request->send(200, "text/html", htmlMainPage); // Отправляем главную страницу
     } else {
       request->send(200, "text/html", htmlPasswordPage); // Если пароль неправильный, отправляем страницу пароля
@@ -74,7 +75,8 @@ void handleWebRequests() {
       passwordReceived = request->getParam("password", true)->value();
     }
 
-    if (passwordReceived == passwordCorrect) {
+    if (passwordReceived == inputPassword.password) {
+          Serial.println("Проверяем, введен ли правильный пароль 2");
       enteredPassword = passwordReceived;
       isPaswordGood = 1;
       request->send(200, "text/html", htmlMainPage); // Отправляем главную страницу
@@ -124,7 +126,7 @@ request->send_P(200, "text/html", htmlSettingPage, [](const String &var) -> Stri
     if (var == "PLACEHOLDER_MQTT_SERVER") {
         return mqttSettings.server;
     } 
-    else if (var == "PLACEHOLDER_MQTT_PORT") {
+    else if (var == "PLACEHOLDER_MQTT_SPORT") {
         return String(mqttSettings.port);
     } else if (var == "PLACEHOLDER_USER_NAME") {
         return mqttSettings.username;
@@ -202,8 +204,14 @@ asyncServer.on("/saveNetworkSettings", HTTP_POST,handleSaveNetwotkSettings);
   // Обработка запроса на изменение пароля
   asyncServer.on("/changePassword", HTTP_POST, [](AsyncWebServerRequest *request) {
     Serial.println("Изменить пароль");
-    //Здесь написать код для изменения пароля
-    //...
+    //Здесь написать код для изменения пароля PLACEHOLDER_NEW_PASSWORD
+       if (request->hasParam("newPassword", true)) {
+        String serverParam = request->getParam("newPassword", true)->value();
+        strncpy(inputPassword.password, serverParam.c_str(), sizeof(inputPassword.password) - 1);
+        inputPassword.password[sizeof(inputPassword.password) - 1] = '\0';
+        saveSettings(inputPassword, "/passwordSettings.dat");
+
+    }
     request->redirect("/settings");
 
 return;
@@ -213,7 +221,7 @@ return;
   asyncServer.on("/returnNetworkSettingsDefault", HTTP_POST, [](AsyncWebServerRequest *request) {
     Serial.println("Возврат к заводским настройкам");
     //Здесь написать код для возврата к заводским настройкам
-    //...
+    factoryReset();
     request->redirect("/settings");
 
 return;
