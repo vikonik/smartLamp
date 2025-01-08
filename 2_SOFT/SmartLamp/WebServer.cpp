@@ -60,7 +60,15 @@ void handleWebRequests() {
   // Обработка POST запроса для ввода пароля
   asyncServer.on("/setPassword", HTTP_POST, [](AsyncWebServerRequest *request) {
     String passwordReceived = "";
-    
+    bool noPasswordChecked = false;
+    //Сначала проверем вход без пароля
+    if (request->hasParam("noPassword", true)) {
+      noPasswordChecked = true; // Если чекбокс отмечен, параметр передается
+      isPaswordGood = 1;
+      request->send(200, "text/html", htmlMainPage); // Отправляем главную страницу
+      return;
+    }
+
     if (request->hasParam("password", true)) {
       passwordReceived = request->getParam("password", true)->value();
     }
@@ -71,7 +79,7 @@ void handleWebRequests() {
       request->send(200, "text/html", htmlMainPage); // Отправляем главную страницу
       //request->send(200, "text/html", "<h1>Password Correct</h1><p>You have successfully entered the correct password.</p>");
     } else {
-      request->send(200, "text/html", "<h1>Incorrect Password</h1><p>Please try again.</p>");
+      request->send(200, "text/html", "<h1>А почему этот пароль имеет такой странный вид?</h1><p>Попробуй ещё разок</p>");
     }
   });
 
