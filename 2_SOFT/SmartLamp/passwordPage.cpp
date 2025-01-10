@@ -85,7 +85,7 @@ const char* htmlPasswordPage = R"rawliteral(
         <input type="password" id="password" name="password">
         
         <div class="checkbox-container">
-            <input type="checkbox" id="noPassword" name="noPassword" checked>
+            <input type="checkbox" id="noPassword" name="noPassword" value = "%PLACEHOLDER_DO_NOT_USE_PASSWORD%">
             <label for="noPassword">Вход без пароля</label>
         </div>
         

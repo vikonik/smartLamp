@@ -17,6 +17,7 @@
 
 typedef struct {
   char password[32];
+  bool noPasswordChecked;
 }Password_t;
 extern Password_t inputPassword;
 extern Password_t inputPasswordDefault;

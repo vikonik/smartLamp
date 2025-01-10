@@ -7,7 +7,7 @@ extern WiFiSettings_t wifiSettingsDefault;
 extern MqttSettings_t mqttSettingsDefailt;
 
 Password_t inputPassword;
-Password_t inputPasswordDefault={"Humster"};
+Password_t inputPasswordDefault={"Humster",true};
 // Настройки Wi-Fi
 // const char* ssid = "Vikonik";          // Имя вашей сети Wi-Fi
 // const char* password = "88115221421";  // Пароль от Wi-Fi
