@@ -119,6 +119,8 @@ void printSettingToUART(void){
   printStructMqttSettings(mqttSettings);
   Serial.print("InputPassword:");
   Serial.println(inputPassword.password);
+  Serial.print("InputWithout Password:");
+  Serial.println(inputPassword.noPasswordChecked);  
 }
 /*
  if (settings.useStaticIP) {

@@ -1,5 +1,5 @@
 
-!!!!Написать алгоритм входа без пароля!!!!
+
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ESPAsyncWebServer.h>
