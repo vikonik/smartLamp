@@ -36,18 +36,30 @@ void setup() {
 
 //Запускаем MQTT
   loadMqttSetting(); //Настройки загрцжаются из файла при инициализации FS
-  client.setServer(mqttSettings.server, mqttSettings.port);
-  client.setCallback(callback);
-  client.setKeepAlive(mqttSettings.keepAlive);  // Указывает, что клиент должен отправлять PINGREQ каждые 60 секунд
-  //connectToMqtt();
+  mqttClientConnect();
+
 
 
 
 }
 
+int mqttReconnectTimer = 0;
+int sendToBroker = 0;
 void loop() {
+  
+  if(millis() - mqttReconnectTimer > 5000){
+    mqttReconnect();
+    mqttReconnectTimer = millis();
+    
+  }
+
+  if(millis() - sendToBroker > 500){
+    senddataToBroker();
+    sendToBroker = millis();
+  }
+   
   // put your main code here, to run repeatedly:
 // updateDNS();
-
+ checkMqttrLoop();
 }
 

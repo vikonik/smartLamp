@@ -278,12 +278,13 @@ void controlLoad(bool state) {
   // Здесь можно добавить код для управления физической нагрузкой, например, включение/выключение реле
   if (loadOn) {
     Serial.println("Нагрузка включена");
-    digitalWrite(16, LOW);
+    digitalWrite(16, HIGH);
 
     // Включение нагрузки
   } else {
     Serial.println("Нагрузка выключена");
-    digitalWrite(16, HIGH);
+    digitalWrite(16, LOW);
+    
     // Выключение нагрузки
   }
 }

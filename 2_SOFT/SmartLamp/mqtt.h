@@ -31,6 +31,9 @@ extern MqttSettings_t mqttSettingsDefailt;
 void loadMqttSetting(void);
 void handleSaveMqttSettings(AsyncWebServerRequest *request);
 void connectToMqtt();
+void mqttClientConnect();
+void mqttReconnect();
+void checkMqttrLoop();
 void callback(char* topic, uint8_t* payload, unsigned int length);
-
+void senddataToBroker();
 #endif
