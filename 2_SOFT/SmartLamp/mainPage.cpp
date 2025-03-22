@@ -51,11 +51,11 @@ const char* htmlMainPage = R"rawliteral(
   </style>
 </head>
 <body>
-  <button id="controlButton" class="control-button off" onclick="toggleLoad()">ВКЛ</button>
+  <button id="controlButton" class="control-button on" onclick="toggleLoad()">ОТКЛ</button>
   <button class="settings-button" onclick="goToSettings()">&#9881;</button>
 
   <script>
-    let loadOn = false; // Переменная для состояния нагрузки
+    let loadOn = true; // Переменная для состояния нагрузки
 
     function toggleLoad() {
       loadOn = !loadOn; // Переключаем состояние

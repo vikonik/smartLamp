@@ -13,7 +13,7 @@ String enteredPassword = "";
 
 
 // Переменная состояния нагрузки (включена/выключена)
-bool loadOn = false;
+bool loadOn = true;
 
 void controlLoad(bool state);
 

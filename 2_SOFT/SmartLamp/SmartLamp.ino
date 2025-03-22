@@ -25,6 +25,7 @@ extern AsyncWebServer asyncServer();
 
 void setup() {
   pinMode(16, OUTPUT);
+  digitalWrite(16, HIGH);//Включаем нагрузку
   Serial.begin(115200);
   delay(5000);
   Serial.println("Ready");
